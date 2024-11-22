@@ -18,7 +18,7 @@ def Tran_Eff(VA, CL, FCL, K, PF):
     Eff = (K * VA * PF) / ((K * VA * PF) + CL + CUL) * 100  # Equation 1
     return Eff, CUL
 
-st.title("2205A21068. - S6.")
+st.title("2205A21055. - S6.")
 
 # Create a container for the input parameters
 with st.container():
