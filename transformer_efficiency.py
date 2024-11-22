@@ -38,5 +38,10 @@ with st.container():
             st.error("Power Factor (PF) must be between 0 and 1.")
         else:
             Eff, CUL = Tran_Eff(VA, CL, FCL, K, PF)
-            st.write(f"### Transformer Efficiency: {Eff:.2f}%")
-            st.write(f"### Copper Losses: {CUL:.2f} W")
+            
+            # Create two columns for output
+            col1, col2 = st.columns([2, 1])
+            with col1:
+                st.write(f"### Transformer Efficiency: {Eff:.2f}%")
+            with col2:
+                st.write(f"### Copper Losses: {CUL:.2f} W")
