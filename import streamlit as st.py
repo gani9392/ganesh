@@ -1,26 +1,42 @@
 import streamlit as st
+import numpy as np
 
+def Tran_Eff(VA, CL, FCL, K, PF):
+    """Calculates transformer efficiency and copper losses.
 
-def Tran_Eff(Ratin, CL, FCL, K, PF):
-    Eff = (K * Ratin * PF) / (K * Ratin * PF + CL + (K**2) * FCL)
-    CUL = (K**2) * FCL
+    Args:
+        VA: Transformer rating in VA
+        CL: Core losses in watts
+        FCL: Full load copper losses in watts
+        K: Loading on transformer (0-1)
+        PF: Power factor
+
+    Returns:
+        Eff: Efficiency
+        CUL: Copper losses
+    """
+
+    Eff = (K * VA * PF) / (K * VA * PF + CL + K**2 * FCL)
+    CUL = K**2 * FCL
+
     return Eff, CUL
 
-st.title("Transformer Efficiency Calculator - Roll No. - PS No.")
+def main():
+    st.title("02341A0259-PS6: Transformer Efficiency Calculator")
 
-st.subheader("Input Transformer Parameters")
+    # Input parameters
+    VA = st.number_input("Transformer Rating (VA)", min_value=1, step=1)
+    CL = st.number_input("Core Losses (Watts)", min_value=0, step=1)
+    FCL = st.number_input("Full Load Copper Losses (Watts)", min_value=0, step=1)
+    K = st.slider("Loading (K)", 0.0, 1.0, 0.5, 0.1)
+    PF = st.slider("Power Factor (PF)", 0.0, 1.0, 0.8, 0.1)
 
+    # Calculate efficiency and copper losses
+    Eff, CUL = Tran_Eff(VA, CL, FCL, K, PF)
 
-Ratin = st.number_input("Rating of Transformer (VA):", min_value=0.0, step=100.0)
-CL = st.number_input("Core Losses (CL) in Watts:", min_value=0.0, step=1.0)
-FCL = st.number_input("Full Load Copper Losses (FCL) in Watts:", min_value=0.0, step=1.0)
-K = st.number_input("Loading on Transformer (K):", min_value=0.0, step=0.1)
-PF = st.number_input("Power Factor (PF):", min_value=0.0, max_value=1.0, step=0.01)
+    # Display results
+    st.write(f"Efficiency: {Eff:.2f}%")
+    st.write(f"Copper Losses: {CUL:.2f} Watts")
 
-if st.button("Calculate Efficiency"):
-    if K > 0:  
-        Eff, CUL = Tran_Eff(Ratin, CL, FCL, K, PF)
-        st.success(f"Efficiency of the Transformer: {Eff:.2%}")
-        st.success(f"Copper Losses (CUL): {CUL:.2f} Watts")
-    else:
-        st.error("Loading on Transformer (K) must be greater than zero.")
+if __name__ == "__main__":
+    main()
