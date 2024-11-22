@@ -18,10 +18,9 @@ def Tran_Eff(VA, CL, FCL, K, PF):
     Eff = (K * VA * PF) / ((K * VA * PF) + CL + CUL) * 100  # Equation 1
     return Eff, CUL
 
-# Set up the web app title
-st.title("Roll No. - Problem Statement No.")
+st.title("2205A21068. - S6.")
 
-# Collect user inputs
+
 st.sidebar.header("Transformer Parameters")
 VA = st.sidebar.number_input("Transformer Rating (VA)", min_value=0.0, value=10000.0, step=100.0)
 CL = st.sidebar.number_input("Core Losses (CL) in watts", min_value=0.0, value=100.0, step=10.0)
@@ -29,7 +28,6 @@ FCL = st.sidebar.number_input("Full Load Copper Losses (FCL) in watts", min_valu
 K = st.sidebar.slider("Loading on Transformer (K)", min_value=0.0, max_value=1.0, value=0.8, step=0.1)
 PF = st.sidebar.slider("Power Factor (PF)", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
 
-# Calculate efficiency and copper losses
 if st.button("Calculate"):
     Eff, CUL = Tran_Eff(VA, CL, FCL, K, PF)
     st.write(f"### Transformer Efficiency: {Eff:.2f}%")
