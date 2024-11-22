@@ -22,7 +22,7 @@ st.title("2205A21068. - S6.")
 
 
 st.sidebar.header("Transformer Parameters")
-VA = st.sidebar.number_input("Transformer Rating (VA)", min_value=0.0, value=10000.0, step=100.0)
+VA = st.middlebar.number_input("Transformer Rating (VA)", min_value=0.0, value=10000.0, step=100.0)
 CL = st.sidebar.number_input("Core Losses (CL) in watts", min_value=0.0, value=100.0, step=10.0)
 FCL = st.sidebar.number_input("Full Load Copper Losses (FCL) in watts", min_value=0.0, value=200.0, step=10.0)
 K = st.sidebar.slider("Loading on Transformer (K)", min_value=0.0, max_value=1.0, value=0.8, step=0.1)
